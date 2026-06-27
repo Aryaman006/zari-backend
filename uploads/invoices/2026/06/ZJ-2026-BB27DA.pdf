@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice ZJ-2026-BB27DA — Zari & Jasi</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    /* ─── Page Layout ─────────────────────────────────────────── */
+    .page { padding: 40px 48px; max-width: 800px; margin: auto; }
+
+    /* ─── Header ──────────────────────────────────────────────── */
+    .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px; }
+    .brand-name {
+      font-size: 28px; font-weight: 700;
+      background: linear-gradient(135deg, #6B1F3A, #C9A84C);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .brand-tagline { font-size: 11px; color: #888; margin-top: 2px; }
+    .invoice-label {
+      text-align: right;
+    }
+    .invoice-label h2 {
+      font-size: 22px; font-weight: 700; color: #6B1F3A; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .invoice-label p { font-size: 12px; color: #555; margin-top: 4px; }
+
+    /* ─── Divider ─────────────────────────────────────────────── */
+    .divider {
+      height: 3px;
+      background: linear-gradient(90deg, #6B1F3A, #C9A84C, #f5e6c8);
+      border-radius: 2px;
+      margin: 0 0 28px;
+    }
+
+    /* ─── Info Grid ───────────────────────────────────────────── */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+    .info-block h4 { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 6px; }
+    .info-block p { font-size: 13px; color: #1a1a1a; line-height: 1.6; }
+    .info-block .highlight { font-weight: 600; color: #6B1F3A; }
+
+    /* ─── Table ───────────────────────────────────────────────── */
+    .items-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+    .items-table thead tr {
+      background: #6B1F3A;
+      color: #fff;
+    }
+    .items-table thead th {
+      padding: 11px 14px; text-align: left;
+      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .items-table thead th:last-child { text-align: right; }
+    .items-table tbody tr { border-bottom: 1px solid #f0f0f0; }
+    .items-table tbody tr:nth-child(even) { background: #fdf8f4; }
+    .items-table tbody td { padding: 11px 14px; vertical-align: top; }
+    .items-table tbody td:last-child { text-align: right; font-weight: 500; }
+    .item-name { font-weight: 600; font-size: 13px; color: #1a1a1a; }
+    .item-variant { font-size: 11px; color: #888; margin-top: 2px; }
+
+    /* ─── Totals ──────────────────────────────────────────────── */
+    .totals-section { display: flex; justify-content: flex-end; margin-bottom: 32px; }
+    .totals-table { width: 280px; }
+    .totals-table tr td { padding: 5px 0; font-size: 13px; }
+    .totals-table tr td:last-child { text-align: right; }
+    .totals-table .label { color: #555; }
+    .totals-table .separator td { border-top: 1px solid #e0e0e0; padding-top: 8px; }
+    .totals-table .grand-total td {
+      font-size: 16px; font-weight: 700; color: #6B1F3A;
+      padding-top: 8px;
+    }
+
+    /* ─── Payment & Tax Info ──────────────────────────────────── */
+    .meta-section {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+      background: #fdf8f4; border-radius: 8px; padding: 20px; margin-bottom: 28px;
+    }
+    .meta-section h4 { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 8px; }
+    .meta-section p { font-size: 12px; color: #1a1a1a; line-height: 1.7; }
+    .status-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 99px;
+      font-size: 11px; font-weight: 600; text-transform: uppercase;
+    }
+    .status-paid { background: #d1fae5; color: #065f46; }
+    .status-pending { background: #fef3c7; color: #92400e; }
+
+    /* ─── Footer ──────────────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid #e0e0e0; padding-top: 20px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .footer p { font-size: 11px; color: #aaa; line-height: 1.6; }
+    .footer .thank-you { font-size: 14px; font-weight: 600; color: #6B1F3A; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div class="brand-name">Zari & Jasi</div>
+      <div class="brand-tagline">Handcrafted Fashion · Est. 2024</div>
+      <div style="margin-top: 12px; font-size: 12px; color: #555; line-height: 1.6;">
+        123 Fashion Street, Mumbai, Maharashtra - 400001<br/>
+        GSTIN: 22AAAAA0000A1Z5
+      </div>
+    </div>
+    <div class="invoice-label">
+      <h2>Tax Invoice</h2>
+      <p><strong>Invoice No:</strong> ZJ-2026-BB27DA</p>
+      <p><strong>Date:</strong> 27 June 2026</p>
+      <p><strong>Order No:</strong> #BB27DAF5</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Info Grid -->
+  <div class="info-grid">
+    <div class="info-block">
+      <h4>Bill To</h4>
+      <p>
+        <span class="highlight">Aryaman Singh</span><br/>
+        patuliya<br/>
+        
+        kolkata, West Bengal – 700119<br/>
+        India<br/>
+        Ph: 6289379872
+      </p>
+    </div>
+    <div class="info-block">
+      <h4>Ship To</h4>
+      <p>
+        <span class="highlight">Aryaman Singh</span><br/>
+        patuliya<br/>
+        
+        kolkata, West Bengal – 700119<br/>
+        India
+      </p>
+    </div>
+    <div class="info-block">
+      <h4>Order Details</h4>
+      <p>
+        <strong>Order Date:</strong> 27 June 2026<br/>
+        <strong>Payment Method:</strong> RAZORPAY<br/>
+        <strong>Payment Status:</strong>
+        <span class="status-badge status-paid">
+          PAID
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Items Table -->
+  <table class="items-table">
+    <thead>
+      <tr>
+        <th style="width: 40%;">Product</th>
+        <th>SKU</th>
+        <th style="text-align:center;">Qty</th>
+        <th style="text-align:right;">Rate (₹)</th>
+        <th>Amount (₹)</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>
+          <div class="item-name">Crimson Bridal Lehenga</div>
+          <div class="item-variant">
+            Size: M
+            
+          </div>
+        </td>
+        <td style="color: #888;">CRL-M-RED</td>
+        <td style="text-align:center;">1</td>
+        <td style="text-align:right;">19999.00</td>
+        <td>19999.00</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+  <!-- Totals -->
+  <div class="totals-section">
+    <table class="totals-table">
+      <tr>
+        <td class="label">Subtotal</td>
+        <td>₹19999.00</td>
+      </tr>
+      
+      <tr>
+        <td class="label">Shipping</td>
+        <td>FREE</td>
+      </tr>
+      <tr class="separator"><td></td><td></td></tr>
+      <tr>
+        <td class="label">Taxable Amount</td>
+        <td>₹19999.00</td>
+      </tr>
+      <tr>
+        <td class="label">CGST @ 9.0%</td>
+        <td>₹1799.91</td>
+      </tr>
+      <tr>
+        <td class="label">SGST @ 9.0%</td>
+        <td>₹1799.91</td>
+      </tr>
+      <tr class="separator"><td></td><td></td></tr>
+      <tr class="grand-total">
+        <td>Grand Total</td>
+        <td>₹23598.82</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Payment & Tax Meta -->
+  <div class="meta-section">
+    <div>
+      <h4>Payment Information</h4>
+      <p>
+        Method: <strong>RAZORPAY</strong><br/>
+        
+        Transaction ID: pay_T6ZlkZaz0yVkpc<br/>
+        
+        Status: <strong>PAID</strong>
+      </p>
+    </div>
+    <div>
+      <h4>Tax Summary</h4>
+      <p>
+        HSN/SAC Code: 6211 (Apparel)<br/>
+        CGST (9%): ₹1799.91<br/>
+        SGST (9%): ₹1799.91<br/>
+        Total Tax: ₹3599.82
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div>
+      <p>
+        This is a computer-generated invoice and does not require a physical signature.<br/>
+        For queries, contact us at support@yourdomain.com<br/>
+        Returns accepted within 7 days of delivery for eligible products.
+      </p>
+    </div>
+    <div style="text-align: right;">
+      <div class="thank-you">Thank you for shopping with us! 🙏</div>
+      <p style="margin-top: 4px;">Zari & Jasi · 123 Fashion Street, Mumbai, Maharashtra - 400001</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
