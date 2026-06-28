@@ -65,7 +65,6 @@ class Settings(BaseSettings):
     # Used for both Database (via DATABASE_URL) and Storage.
     SUPABASE_URL: Optional[str] = None
     SUPABASE_SERVICE_ROLE_KEY: Optional[str] = None
-    SUPABASE_STORAGE_BUCKET: str = "zari-assets"
     # Signed URL expiry for private assets (invoices, etc.)
     SUPABASE_SIGNED_URL_EXPIRE: int = 3600  # 1 hour
 

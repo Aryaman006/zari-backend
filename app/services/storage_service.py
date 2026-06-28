@@ -190,7 +190,6 @@ class SupabaseStorageService(BaseStorageService):
     def __init__(self):
         self._base_url = (settings.SUPABASE_URL or "").rstrip("/")
         self._service_key = settings.SUPABASE_SERVICE_ROLE_KEY or ""
-        self._bucket = settings.SUPABASE_STORAGE_BUCKET
 
         if not self._base_url or not self._service_key:
             raise ValueError(
@@ -215,7 +214,11 @@ class SupabaseStorageService(BaseStorageService):
             return "invoices"
         elif path_str.startswith("avatars/") or path_str.startswith("avatar/") or path_str.startswith("user-uploads/"):
             return "user-uploads"
-        return self._bucket
+        
+        raise ValueError(
+            f"Could not resolve Supabase Storage bucket for path '{key_or_folder}'. "
+            "Please configure a valid prefix or pass an explicit bucket name."
+        )
 
     def _auth_headers(self) -> dict:
         return {

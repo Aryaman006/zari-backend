@@ -155,22 +155,22 @@ app.include_router(customer.router, prefix=PREFIX)
 app.include_router(admin.router, prefix=PREFIX)
 
 
-# ── Direct File Upload Endpoint (local storage only) ─────────────────────────
+# ── Direct File Upload Endpoint ──────────────────────────────────────────────
 @app.post("/api/v1/uploads/direct", tags=["Uploads"])
 async def direct_upload(key: str, file: UploadFile = File(...)):
     """
-    Direct file upload endpoint for local storage backend.
-    The frontend POSTs the file here after calling /admin/products/{id}/images/upload-url.
-    NOT used when STORAGE_BACKEND=supabase or r2 (browser uploads directly via presigned URL).
+    Direct file upload endpoint.
+    Uploads files to the active storage service backend (local, supabase, or r2).
     """
-    from app.services.storage_service import storage_service, LocalStorageService
-    if not isinstance(storage_service, LocalStorageService):
-        return JSONResponse(
-            status_code=400,
-            content={"detail": "Direct upload only available with local storage backend."},
-        )
+    from app.services.storage_service import storage_service
     data = await file.read()
-    public_url = storage_service.save_upload(key, data)
+    content_type = file.content_type or "application/octet-stream"
+    
+    public_url = await storage_service.upload_bytes(
+        key=key,
+        data=data,
+        content_type=content_type
+    )
     return {"key": key, "public_url": public_url, "size": len(data)}
 
 

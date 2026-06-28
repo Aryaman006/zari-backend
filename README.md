@@ -60,7 +60,6 @@ Copy `.env.example` from the root of the project to `backend/.env` and configure
 - `STORAGE_BACKEND`: Storage driver to use (`local` | `supabase`)
 - `SUPABASE_URL`: Supabase Project REST API URL (e.g. `https://abcdef.supabase.co`)
 - `SUPABASE_SERVICE_ROLE_KEY`: Service role JWT token (bypass policies, never expose to frontends)
-- `SUPABASE_STORAGE_BUCKET`: Default fallback bucket (e.g. `zari-assets`)
 
 #### Multi-Bucket Setup:
 For production (`STORAGE_BACKEND=supabase`), ensure the following buckets are configured in your Supabase Dashboard:
