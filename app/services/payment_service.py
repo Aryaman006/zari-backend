@@ -7,7 +7,7 @@ import hmac
 import logging
 from typing import Optional
 
-import razorpay
+import httpx
 from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -20,12 +20,6 @@ from app.repositories.base_repository import BaseRepository
 logger = logging.getLogger(__name__)
 
 
-def get_razorpay_client() -> razorpay.Client:
-    if not settings.RAZORPAY_KEY_ID or not settings.RAZORPAY_KEY_SECRET:
-        raise RuntimeError("Razorpay is not configured.")
-    return razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
-
-
 class PaymentService:
     def __init__(self, session: AsyncSession):
         self.session = session
@@ -36,12 +30,14 @@ class PaymentService:
         Create a Razorpay order for the given internal order.
         Returns Razorpay order details needed by the frontend SDK.
         """
-        client = get_razorpay_client()
+        if not settings.RAZORPAY_KEY_ID or not settings.RAZORPAY_KEY_SECRET:
+            raise RuntimeError("Razorpay is not configured.")
 
         # Amount in paise (Razorpay requires integer paise)
         amount_paise = int(order.total * 100)
 
-        rz_order = client.order.create({
+        url = "https://api.razorpay.com/v1/orders"
+        payload = {
             "amount": amount_paise,
             "currency": settings.RAZORPAY_CURRENCY,
             "receipt": f"order_{order.id[:8]}",
@@ -49,7 +45,31 @@ class PaymentService:
                 "order_id": order.id,
                 "customer_email": order.user.email if order.user else "",
             },
-        })
+        }
+
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.post(
+                    url,
+                    json=payload,
+                    auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET),
+                    timeout=15.0,
+                )
+            except Exception as e:
+                logger.error(f"Error connecting to Razorpay: {e}")
+                raise HTTPException(
+                    status_code=status.HTTP_502_BAD_GATEWAY,
+                    detail="Failed to connect to payment gateway."
+                )
+
+        if response.status_code not in (200, 201):
+            logger.error(f"Razorpay order API failed with status {response.status_code}: {response.text}")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Payment gateway returned an error during order creation."
+            )
+
+        rz_order = response.json()
 
         # Create payment record
         payment = Payment(
